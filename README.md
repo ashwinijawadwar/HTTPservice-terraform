@@ -12,79 +12,42 @@ How the Service Works:
     Listing Contents of a Specific Directory: When a path is specified (e.g., /list-bucket-content/dir1), the service lists all objects under that prefix. It again uses the delimiter / to group objects, effectively listing the contents of the specified directory.
 
 
-1 sudo apt update -y
+  app.run(host='0.0.0.0', port=5000)
 
-2 sudo apt install python3-pip -y
+1. Launch an EC2 Instance
 
-3 pip install flask boto3
+    Create an EC2 instance with a suitable AMI (e.g., Ubuntu 20.04).
+    Ensure it has an appropriate security group with necessary inbound and outbound rules.
 
-python3 -m venv venv
+install sudo apt install python3-pip -y
+pip install flask boto3
+create s3-app.py file
 
-5 sudo apt install python3.12-venv
+2. Attach an IAM Role to EC2
 
-6 python3m venv venv
+    Create an IAM Role with the AmazonS3FullAccess policy.
+    Attach this role to the EC2 instance.
 
-7 source venv/bin/activate
+3. Configure AWS CLI
+Log in to the EC2 instance via SSH.
+Run the following command to configure AWS CLI:
 
-8 pip install flask boto3
+aws configure
 
-9 sudo mkdir s3http
+``
+4. Create S3 bucket And give Policy
 
-10 cd s3http/
+    "Version": "2012-10-17",
+    "Id": "Policy1735567338835",
+    "Statement": [
+        {
+            "Sid": "Stmt1735567337153",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::taskwalibucket/*"
+        }
+    ]
+}
 
-11 sudo nano s3app.py
 
-12 exit
-
-13 sudo apt update
-
-14 sudo apt upgrade -у
-
-15 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" o "awscliv2.zip"
-
-16 unzip awscliv2.zip
-
-17 sudo unzip awscliv2.zip
-
-18 unzip awscliv2.zip
-
-19 aws config
-
-20 aws configure
-
-21 sudo apt update
-
-22 sudo apt install awscli -y
-
-23 aws --version
-
-24 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" o "awscliv2.zip"
-
-25 unzip awscliv2.zip
-
-26 sudo apt install unzip -y
-
-27 unzip awscliv2.zip
-
-28 sudo./aws/install
-
-29 aws --version
-
-30 aws configure
-
-31 python3 -m venv venv
-
-32 source venv/bin/activate
-
-33 pip install flask boto3
-
-34 1s
-
-35 cd s3http/
-
-36 ls
-
-37 nano s3app.py
-
-38 python3 s3app.py
-The service is secured using HTTPS.
